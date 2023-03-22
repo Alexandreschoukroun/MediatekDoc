@@ -382,11 +382,9 @@ namespace Mediatek86.modele
             return lesSuivis;
         }
 
-        /// <summary>
-        /// Retourne toutes les commandes de livre à partir de la BDD
-        /// </summary>
-        /// <returns>Liste d'objets CommandeDocument</returns>
-        public static List<CommandeDocument> GetCommandesLivre(string idDocument)
+        /// <param name="idDocument"></param>
+        /// <returns>Collection d'objets CommandeDocument</returns>
+        public static List<CommandeDocument> GetCommandesLivreDvd(string idDocument)
         {
             List<CommandeDocument> lesCommandes = new List<CommandeDocument>();
             string req = "Select d.id, c.dateCommande as 'date commande', c.montant, c.idSuivi, s.libelle as suivi, ";
