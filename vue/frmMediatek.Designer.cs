@@ -1657,7 +1657,6 @@ namespace Mediatek86.vue
             this.grpReceptionRevue.TabIndex = 15;
             this.grpReceptionRevue.TabStop = false;
             this.grpReceptionRevue.Text = "Recherche revue";
-            this.grpReceptionRevue.Enter += new System.EventHandler(this.grpReceptionRevue_Enter);
             // 
             // label56
             // 
@@ -2739,7 +2738,6 @@ namespace Mediatek86.vue
             this.txbNumCR.Name = "txbNumCR";
             this.txbNumCR.Size = new System.Drawing.Size(101, 20);
             this.txbNumCR.TabIndex = 40;
-            this.txbNumCR.TextChanged += new System.EventHandler(this.txbNumCR_TextChanged);
             // 
             // label85
             // 

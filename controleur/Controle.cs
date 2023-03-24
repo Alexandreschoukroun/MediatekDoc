@@ -14,6 +14,9 @@ namespace Mediatek86.controleur
         private readonly List<Categorie> lesRayons;
         private readonly List<Categorie> lesPublics;
         private readonly List<Categorie> lesGenres;
+        private readonly List<FinAbonnement> lesFinAbonnements;
+        // true si l'utilisateur fait partie du service Prêts
+        private bool servicePrets = false;
 
         /// <summary>
         /// Ouverture de la fenêtre
@@ -26,8 +29,29 @@ namespace Mediatek86.controleur
             lesGenres = Dao.GetAllGenres();
             lesRayons = Dao.GetAllRayons();
             lesPublics = Dao.GetAllPublics();
-            FrmMediatek frmMediatek = new FrmMediatek(this);
-            frmMediatek.ShowDialog();
+            lesFinAbonnements = Dao.GetAllFinAbonnement();
+            FrmAuth frmAuth = new FrmAuth(this);
+            frmAuth.ShowDialog();
+        }
+
+        /// <summary>
+        /// getter sur l'utilisateur dont le login et le pwd sont passés en paramètre
+        /// </summary>
+        /// <param name="login"></param>
+        /// <param name="pwd"></param>
+        /// <returns>Liste d'objets Utilisateur</returns>
+        public List<Utilisateur> GetUtilisateur(string login, string pwd)
+        {
+            return Dao.GetUtilisateur(login, pwd);
+        }
+
+        /// <summary>
+        /// getter sur la liste des abonnements arrivant à leur terme
+        /// </summary>
+        /// <returns>Collection d'objets FinAbonnement</returns>
+        public List<FinAbonnement> GetAllFinAbonnement()
+        {
+            return lesFinAbonnements;
         }
 
         /// <summary>
@@ -181,7 +205,37 @@ namespace Mediatek86.controleur
         {
             return Dao.DeleteCommandeRevue(commande);
         }
-    }
 
+        /// <summary>
+        /// Gère les affichages dans l'application en fonction
+        /// du service auquel appartient l'utilisateur
+        /// </summary>
+        /// <param name="service"></param>
+        public void Authentification(int service)
+        {
+            if (service == 1)
+            {
+                FrmFinAbonnement frmFinAbonnement = new FrmFinAbonnement(this);
+                frmFinAbonnement.ShowDialog();
+                FrmMediatek frmMediatek = new FrmMediatek(this);
+                frmMediatek.ShowDialog();
+            }
+            else if (service == 2)
+            {
+                servicePrets = true;
+                FrmMediatek frmMediatek = new FrmMediatek(this);
+                frmMediatek.ShowDialog();
+            }
+        }
+
+        /// <summary>
+        /// getter sur servicePrets
+        /// </summary>
+        /// <returns>True si l'utilisateur fait partie du service Prêts</returns>
+        public bool getServicePrets()
+        {
+            return this.servicePrets;
+        }
+    }
 }
 

@@ -37,6 +37,56 @@ namespace Mediatek86.modele
         }
 
         /// <summary>
+        /// Retourne l'utilisateur dont le login et le pwd ont été passé en paramètre de la BDD
+        /// </summary>
+        /// <param name="login"></param>
+        /// <param name="pwd"></param>
+        /// <returns>Liste d'objet Utilisateur</returns>
+        public static List<Utilisateur> GetUtilisateur(string login, string pwd)
+        {
+            List<Utilisateur> lesUtilisateurs = new List<Utilisateur>();
+            string req = "Select * from utilisateur where login = @login and pwd = @pwd";
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@login", login},
+                    { "@pwd", pwd}
+                };
+
+            BddMySql curs = BddMySql.GetInstance(connectionString);
+            curs.ReqSelect(req, parameters);
+
+            while (curs.Read())
+            {
+                Utilisateur utilisateur = new Utilisateur((string)curs.Field("id"), login, pwd, (string)curs.Field("idService"));
+                lesUtilisateurs.Add(utilisateur);
+            }
+
+            curs.Close();
+            return lesUtilisateurs;
+        }
+
+        /// <summary>
+        /// Retourne tous les abonnements qui arrivent à leur terme
+        /// </summary>
+        /// <returns>Collection d'objets FinAbonnement</returns>
+        public static List<FinAbonnement> GetAllFinAbonnement()
+        {
+            List<FinAbonnement> lesFinAbonnements = new List<FinAbonnement>();
+            string req = "Call finAbonnement()";
+
+            BddMySql curs = BddMySql.GetInstance(connectionString);
+            curs.ReqSelect(req, null);
+
+            while (curs.Read())
+            {
+                FinAbonnement finAbonnement = new FinAbonnement((string)curs.Field("titre"), (DateTime)curs.Field("dateFinAbonnement"));
+                lesFinAbonnements.Add(finAbonnement);
+            }
+            curs.Close();
+            return lesFinAbonnements;
+        }
+
+        /// <summary>
         /// Retourne tous les rayons à partir de la BDD
         /// </summary>
         /// <returns>Collection d'objets Rayon</returns>

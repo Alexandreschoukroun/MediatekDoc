@@ -41,6 +41,17 @@ namespace Mediatek86.vue
         {
             InitializeComponent();
             this.controle = controle;
+            if (controle.getServicePrets())
+            {
+                grpReceptionRevue.Enabled = false;
+                grpReceptionExemplaire.Enabled = false;
+                grpCLRecherche.Enabled = false;
+                grpCommandeLivre.Enabled = false;
+                grpCDRecherche.Enabled = false;
+                grpCommandeDvd.Enabled = false;
+                grpCRRecherche.Enabled = false;
+                grpCommandeRevue.Enabled = false;
+            }
         }
 
 
@@ -2175,15 +2186,5 @@ namespace Mediatek86.vue
         }
 
         #endregion
-
-        private void grpReceptionRevue_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txbNumCR_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
