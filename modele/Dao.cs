@@ -9,11 +9,11 @@ namespace Mediatek86.modele
     public static class Dao
     {
 
-        private static readonly string server = "localhost";
-        private static readonly string userid = "root";
-        private static readonly string password = "";
-        private static readonly string database = "mediatek";
-        private static readonly string connectionString = "server="+server+";user id="+userid+";password="+password+";database="+database+";SslMode=none";
+        private static readonly string server = "node127-eu.n0c.com";
+        private static readonly string userid = "wtvuygnw";
+        private static readonly string password = "hrkK3XZHBbJuz6";
+        private static readonly string database = "wtvuygnw_mediatekDocument";
+        private static readonly string connectionString = "server=" + server + ";user id=" + userid + ";password=" + password + ";database=" + database + ";SslMode=none";
 
         /// <summary>
         /// Retourne tous les genres à partir de la BDD
@@ -243,7 +243,7 @@ namespace Mediatek86.modele
                 string lepublic = (string)curs.Field("public");
                 string rayon = (string)curs.Field("rayon");
                 Revue revue = new Revue(id, titre, image, idgenre, genre,
-                    idpublic, lepublic, idrayon, rayon, empruntable, periodicite, delaiMiseADispo);
+                    idpublic, lepublic, idrayon, rayon, Convert.ToBoolean(empruntable), periodicite, delaiMiseADispo);
                 lesRevues.Add(revue);
             }
             curs.Close();
